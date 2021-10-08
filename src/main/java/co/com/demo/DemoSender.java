@@ -15,12 +15,32 @@ public class DemoSender {
     public void execute() {
         var client = ElasticClientConfig.ENVIRONMENT_ELASTICSEARCH.getClient();
         var domains = client.listDomainNames();
-        MDC.put("key", "Calling Service");
-        domains.domainNames().forEach(domainInfo -> log.info(domainInfo.domainName()));
+        var elasticService = RestService.create();
+
+        MDC.put("key", "Domain Names");
+        domains.domainNames().forEach(domainInfo -> log.info("Domains from elastic {}", domainInfo.domainName()));
+
+        MDC.put("key", "Index Item");
         var item = new HashMap<String, Object>();
         item.put("company", "demo-company");
-        var result = RestService.create().indexItem(item);
-        log.info("Result is {}", result);
+        log.info("Result is {}", elasticService.indexItem(item));
+
+        MDC.put("key", "Analyze");
+        var analyze = elasticService.analyze("palabras que hacen match con companies");
+        log.info("Analyze result {}", analyze);
+
+        MDC.put("key", "Document");
+        var documentResult = elasticService.createDocument("interests");
+        log.info("Document result  {}", documentResult);
+
+        MDC.put("key", "Index");
+        var singleIndex = elasticService.searchIndexes("companies");
+        log.info("Single Index result  {}", singleIndex);
+
+        MDC.put("key", "Indexes");
+        var indexes = elasticService.listAllIndexes();
+        log.info("Indexes are {}", indexes);
+
         MDC.clear();
     }
 
