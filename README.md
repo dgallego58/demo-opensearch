@@ -8,7 +8,7 @@
 
 * :whale: install docker
 * :coffee: Java - Jdk 11
-* :cloud: an account with aws (sing your credentials with STS)
+* :cloud: an account with aws (sign with your credentials with STS -accessKey, secret, and token-)
 
 set its max memory to at least 6GB, this due to OpenSearch is memory hungry
 
