@@ -4,7 +4,9 @@
 
 ## What do you need?
 
-:flag-co: :colombia: :flag_colombia:
+* :flag-co:
+* :colombia:
+* :flag_colombia:
 
 * :white_check_mark: install docker
 * :white_check_mark: Jdk 11
