@@ -1,4 +1,4 @@
-# This is project demo for using OpenSearch in your local environment
+# This project is a demo for using OpenSearch in your local environment
 
 ### first things first
 
@@ -102,7 +102,8 @@ networks:
   opensearch-net:
 ```
 
-The first node is opensearch-node1 the second one ends with node2
+The first node is opensearch-node1 the second one ends with node2, for more info you can
+check [OpenSearchDoc](https://opensearch.org/docs/latest/dashboards/install/docker/)
 
 ```shell
 $ cd "working_dir"/docker-compose.yml
