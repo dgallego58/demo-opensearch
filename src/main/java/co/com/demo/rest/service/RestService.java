@@ -29,12 +29,13 @@ public class RestService {
                 .setHeader("Content-Type", "application/json")
                 .setHeader("Accept", "application/json")
                 .build();
+
         var responseBody = factory.build()
                 .sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8))
                 .thenApply(HttpResponse::body)
                 .join();
 
-        return JacksonProvider.read(Map.class).apply(responseBody);
+        return JacksonProvider.readAs(Map.class).apply(responseBody);
     }
 
 

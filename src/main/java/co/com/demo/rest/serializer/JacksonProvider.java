@@ -32,7 +32,7 @@ public class JacksonProvider {
         //private
     }
 
-    public static <T> Function<String, T> read(Class<T> type) {
+    public static <T> Function<String, T> readAs(Class<T> type) {
         return json -> {
             try {
                 return jsonObjectMapper.readValue(json, type);
