@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'co.com.bancolombia'
+version '1.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'co.com.demo.Main'
+}
+
+dependencies {
+
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    implementation 'ch.qos.logback:logback-core:1.2.6'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'org.codehaus.janino:janino:3.1.6'
+    implementation 'org.fusesource.jansi:jansi:2.3.4'
+
+    implementation platform('software.amazon.awssdk:bom:2.+')
+    implementation 'software.amazon.awssdk:sts'
+    implementation 'software.amazon.awssdk:elasticsearch'
+
+    implementation platform('com.fasterxml.jackson:jackson-bom:2.+')
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    implementation 'com.fasterxml.jackson.module:jackson-module-parameter-names'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+}
+
+test {
+    useJUnitPlatform()
+}

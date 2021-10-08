@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ scan: cuando esta propiedad se establece en true, si el archivo de configuración cambia, se volverá a cargar, el valor predeterminado es true.
+ scanPeriod: establezca si el archivo de configuración de supervisión tiene un intervalo de tiempo modificado. Si no se proporciona una unidad de tiempo, la unidad predeterminada es milisegundos. Cuando la exploración es verdadera, esta propiedad surte efecto. El intervalo predeterminado es 1 minuto.
+ depuración: cuando este atributo se establece en verdadero, se imprimirá la información de registro interno de la recuperación y el estado de ejecución de la recuperación se verificará en tiempo real. El valor predeterminado es falso.
+-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- Configuración de color personalizada La clase de conversión aquí se refiere a la ruta de la clase de color de registro, y esto coincide con el segundo método de salida de color de la consola -->
+    <conversionRule conversionWord="customcolor" converterClass="co.com.demo.log.LogbackColorful"/>
+    <!-- Defina el directorio raíz del registro a guardar -->
+    <!--    <property name="LOG_HOME" value="C:/logfile"/>-->
+    <property name="HOME_LOG" value="logs/app.log"/>
+    <!-- Defina el nombre del archivo de registro -->
+    <property name="appName" value="open-search-log-demo"/>
+    <!-- ch.qos.logback.core.ConsoleAppender significa salida de consola ->
+
+    <!- Segundo método de salida de color de la consola -->
+    <appender name="CONSLOG" class="ch.qos.logback.core.ConsoleAppender">
+        <!--
+                 Formato de salida del registro:
+                         % d representa la fecha y la hora,
+                         % thread representa el nombre del hilo,
+                         % -5 nivel: el nivel muestra 5 caracteres desde la izquierda
+                         % logger {50} significa que el nombre del registrador tiene hasta 50 caracteres, de lo contrario se divide por puntos
+                         % msg: mensaje de registro,
+                         % n es un caracter de nueva línea
+        -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%blue(%d{yyyy-MM-dd}) | %red(%d{HH:mm:ss}) |%green(%-10.10([%thread]){10})| %customcolor(%-5level)
+                | %boldCyan(%-25.25(ID: [%X{key}]){25}) | %boldMagenta(%logger) - %msg%n
+            </pattern>
+        </encoder>
+        <!--        <charset>UTF-8</charset>-->
+    </appender>
+
+    <!-- Gire el archivo de grabación, primero grabe el registro en el archivo especificado, cuando se cumpla una determinada condición, grabe el registro en otro archivo -->
+    <!-- Esta configuración significa generar un archivo de registro todos los días y guardar el archivo de registro durante 30 días. -->
+    <appender name="appLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- Especifique el nombre del archivo de registro -->
+        <file>${HOME_LOG}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}-%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <!-- Formato de salida del registro: -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [ %thread ] - %X{key} - [ %-5level ] [ %logger{50} : %line ] - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- level se usa para establecer el nivel de impresión, independientemente de las mayúsculas -->
+    <root level="info">
+        <!-- registro de salida de consola -->
+        <appender-ref ref="CONSLOG"/>
+        <!-- imprimir registro de errores todos los días -->
+        <appender-ref ref="appLogAppender"/>
+    </root>
+</configuration>
