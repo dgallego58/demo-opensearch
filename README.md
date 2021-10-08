@@ -6,6 +6,7 @@
 
 * :flag-co:
 * :colombia:
+* :co:
 * :flag_colombia:
 
 * :white_check_mark: install docker
