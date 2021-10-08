@@ -4,7 +4,7 @@
 
 ## What do you need?
 
-:colombia:
+:co:
 :white_check_mark: install docker
 :white_check_mark: Jdk 11
 :white_check_mark: an account with aws (sing your credentials with STS)
