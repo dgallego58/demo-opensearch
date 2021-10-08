@@ -32,6 +32,16 @@ public class JacksonProvider {
         //private
     }
 
+    /**
+     * Use it as:
+     * <pre>{@code
+     *  var map = JacksonProvider.readAs(Map.class).apply(jsonString);
+     * }</pre>
+     *
+     * @param type the class to be converted from the json
+     * @param <T>  type of class
+     * @return an object or null if json is invalid or class is not concrete
+     */
     public static <T> Function<String, T> readAs(Class<T> type) {
         return json -> {
             try {

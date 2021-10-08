@@ -120,6 +120,9 @@ after that you must see something similar to this:
 
 ![Evidence](./img/success_docker_compose.png)
 
+** :warning: remember to check your dashboard to be working nice while going to your browser at http://localhost:5601 **
+with default password admin and user admin :smile:
+
 then you can run this project with
 
 ```shell
