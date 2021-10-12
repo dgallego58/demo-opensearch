@@ -7,13 +7,11 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.net.http.HttpClient;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.time.Duration;
-import java.util.Base64;
 
 public class RestClientFactory {
 
@@ -41,10 +39,6 @@ public class RestClientFactory {
         return this.httpClientBuilder.build();
     }
 
-    public String basicAuthHeader(String username, String password) {
-        return "Basic " + Base64.getEncoder()
-                .encodeToString((username + ":" + password).getBytes(StandardCharsets.UTF_8));
-    }
 
     public RestClientFactory withOutSslContext() {
         TrustManager[] trustCerts = new TrustManager[]{

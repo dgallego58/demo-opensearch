@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         ElasticClientConfig.SYSTEM_PROPERTY_ELASTICSEARCH.getClient();
-        DemoSender demoSender = new DemoSender();
-        demoSender.execute();
+        DemoIndex demoIndex = new DemoIndex();
+        demoIndex.execute();
     }
 }

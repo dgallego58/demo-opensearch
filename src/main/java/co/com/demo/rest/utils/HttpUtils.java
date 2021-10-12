@@ -1,4 +1,4 @@
-package co.com.demo.rest.service;
+package co.com.demo.rest.utils;
 
 public final class HttpUtils {
 
@@ -7,6 +7,7 @@ public final class HttpUtils {
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String ACCEPT = "Accept";
     public static final String AUTHORIZATION = "Authorization";
+    public static final String ADMIN = "admin";
 
     private HttpUtils() {
         //final class
