@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.X509ExtendedTrustManager;
+import java.net.Socket;
 import java.net.http.HttpClient;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -41,29 +43,49 @@ public class RestClientFactory {
 
 
     public RestClientFactory withOutSslContext() {
-        TrustManager[] trustCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    @Override
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
-                        //empty and disabled
-                    }
+        TrustManager trustCerts = new X509ExtendedTrustManager() {
 
-                    @Override
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
-                        //empty and disabled
-                    }
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType) {
 
-                    @Override
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-                }
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType) {
+
+            }
+
+            @Override
+            public X509Certificate[] getAcceptedIssuers() {
+                return new X509Certificate[0];
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType, Socket socket) {
+
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType, Socket socket) {
+                //all sockets trusted
+            }
+
+            @Override
+            public void checkClientTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {
+
+            }
+
+            @Override
+            public void checkServerTrusted(X509Certificate[] chain, String authType, SSLEngine engine) {
+                //all server are trusted
+            }
         };
-
+        var array = new TrustManager[]{trustCerts};
         try {
             var sslCtx = SSLContext.getInstance(TLS);
-            sslCtx.init(null, trustCerts, new SecureRandom());
+            sslCtx.init(null, array, new SecureRandom());
             httpClientBuilder.sslContext(sslCtx);
+
         } catch (NoSuchAlgorithmException e) {
             log.error("There is no such instance for the algorithm ", e);
         } catch (KeyManagementException e) {
