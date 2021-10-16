@@ -24,7 +24,7 @@ public class JacksonProvider {
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .build();
     private static final Logger log = LoggerFactory.getLogger(JacksonProvider.class);
-    public static final Function<Object, String> stringify = object -> {
+    public static final Function<Object, String> STRINGIFY = object -> {
         try {
             return jsonObjectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {

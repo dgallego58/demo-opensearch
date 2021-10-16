@@ -25,6 +25,9 @@ dependencies {
     implementation platform('software.amazon.awssdk:bom:2.+')
     implementation 'software.amazon.awssdk:sts'
     implementation 'software.amazon.awssdk:elasticsearch'
+    implementation 'software.amazon.awssdk:aws-core'
+    implementation 'software.amazon.awssdk:apache-client'
+    implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.13.4'
 
     implementation platform('com.fasterxml.jackson:jackson-bom:2.+')
     implementation 'com.fasterxml.jackson.core:jackson-core'

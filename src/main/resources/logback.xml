@@ -27,7 +27,7 @@
         -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%replace(%blue(%d{yyyy-MM-dd}) | %red(%d{HH:mm:ss}) | %replace(%green(%-10.10([%thread]){10})|
-                %customcolor(%5.5(%-5level){8})){'[\s]',''} | %boldCyan( %-20(ID: [%X{key}]){20}) %replace(|
+                %customcolor(%8(%-5level){8})){'[\s]',''} | %boldCyan( %-20(ID: [%X{key}]){20}) %replace(|
                 %boldMagenta( %logger{50} )){'[\s]',''} -- %msg){'[\n\r]',''}%n
             </pattern>
         </encoder>

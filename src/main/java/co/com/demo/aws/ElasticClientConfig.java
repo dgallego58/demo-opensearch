@@ -34,7 +34,7 @@ public enum ElasticClientConfig {
                     throw new IOException("Cannot be read from " + ELASTIC_PROPERTIES);
                 }
                 props.load(is);
-                String propsAsJson = JacksonProvider.stringify.apply(props);
+                String propsAsJson = JacksonProvider.STRINGIFY.apply(props);
                 log.info("Load accessKey: {}", propsAsJson);
                 return ElasticsearchClient.builder()
                         .credentialsProvider(SystemPropertyCredentialsProvider.create())

@@ -50,7 +50,7 @@ public class HttpRequestFactory {
     }
 
     public HttpRequestFactory post(Object requestBody) {
-        var jsonRequestBody = JacksonProvider.stringify.apply(requestBody);
+        var jsonRequestBody = JacksonProvider.STRINGIFY.apply(requestBody);
         if (jsonRequestBody.isEmpty()) {
             httpRequestBuilder.POST(HttpRequest.BodyPublishers.noBody());
             return this;
@@ -60,7 +60,7 @@ public class HttpRequestFactory {
     }
 
     public HttpRequestFactory put(Object requestBody) {
-        var jsonRequestBody = JacksonProvider.stringify.apply(requestBody);
+        var jsonRequestBody = JacksonProvider.STRINGIFY.apply(requestBody);
         if (jsonRequestBody.isEmpty()) {
             httpRequestBuilder.PUT(HttpRequest.BodyPublishers.ofString(jsonRequestBody));
             return this;

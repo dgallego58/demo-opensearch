@@ -2,12 +2,15 @@ package co.com.demo.rest.utils;
 
 import co.com.demo.rest.serializer.JacksonProvider;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
 public class HttpEntityResponse {
+    private static final Logger log = LoggerFactory.getLogger(HttpEntityResponse.class);
     private final HttpResponse<String> httpResponse;
 
     public HttpEntityResponse(HttpResponse<String> httpResponse) {
@@ -23,7 +26,11 @@ public class HttpEntityResponse {
         var headers = httpResponse.headers().map();
         var statusCode = httpResponse.statusCode();
         var entityResponse = new EntityResponse(headers, statusCode, body);
-        return JacksonProvider.stringify.apply(entityResponse);
+        if (entityResponse.statusCode / 100 != 2) {
+            var jsonBody = entityResponse.body.toString();
+            log.error("Error en la petición :( {}", jsonBody);
+        }
+        return JacksonProvider.STRINGIFY.apply(entityResponse);
     }
 
 
